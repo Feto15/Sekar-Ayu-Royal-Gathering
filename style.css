@@ -260,6 +260,7 @@ ul {
   height: 400px;
   object-fit: contain;
   margin-top: -135px;
+  margin-bottom: -180px;
 }
 
 .hero-title-main {
@@ -881,6 +882,7 @@ footer {
   .hero-logo-heritage {
     height: 260px;
     margin-top: -85px;
+    margin-bottom: -80px;
   }
   .hero-title-main {
     font-size: 18vw;
