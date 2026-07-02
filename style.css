@@ -5,18 +5,34 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap');
 
+@font-face {
+  font-family: 'Shanlan';
+  src: url('SHANLN__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shanlan Condensed';
+  src: url('SHANLNC_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* Colors */
-  --c-bg: #FDFBF7;
-  --c-bg-alt: #F4EFE6;
-  --c-emerald: #0A3626;
-  --c-emerald-light: #16563E;
-  --c-emerald-dark: #042419;
-  --c-gold: #C8A97E;
-  --c-gold-light: #D9C3A3;
-  --c-text-dark: #1A1A1A;
+  --c-bg: #FFFFFF; /* White */
+  --c-bg-alt: #ececec; /* Mercury Grey */
+  --c-emerald: #231f20; /* Jet Black */
+  --c-emerald-dark: #231f20; /* Jet Black */
+  --c-emerald-light: #231f20; /* Jet Black */
+  --c-gold: #bb9d81; /* Pale Gold */
+  --c-gold-light: #bb9d81; /* Pale Gold */
+  --c-text-dark: #231f20; /* Jet Black */
   --c-text-muted: #5A5A5A;
-  --c-white: #FFFFFF;
+  --c-text-light: #231f20; /* Jet Black */
+  --c-white: #ffffff;
+  --c-grey: #ececec; /* Mercury Grey */
 
   /* Typography */
   --font-serif: 'Playfair Display', serif;
@@ -34,7 +50,7 @@
   --radius-md: 8px;
   --radius-lg: 16px;
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 30px rgba(10, 54, 38, 0.1);
+  --shadow-md: 0 10px 30px rgba(35, 31, 32, 0.1);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -132,7 +148,7 @@ ul {
 
 .btn-gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(200, 169, 126, 0.3);
+  box-shadow: 0 10px 20px rgba(187, 157, 129, 0.3);
 }
 
 /* --- Sections --- */
@@ -183,7 +199,7 @@ ul {
   width: 100%;
   height: 100%;
   background: url('background.png') no-repeat center bottom;
-  background-size: 100% auto;
+  background-size: cover;
   opacity: 0.8;
   mix-blend-mode: multiply;
   z-index: -2;
@@ -206,7 +222,7 @@ ul {
 }
 
 .ornament-event-right {
-  top: -100px;
+  top: 0px;
   right: -150px;
   width: 40vw;
   max-width: 400px;
@@ -219,16 +235,52 @@ ul {
 }
 
 .hero-content {
-  max-width: 800px;
-  z-index: 1;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.hero-title {
-  font-size: clamp(3rem, 6vw, 5rem);
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  letter-spacing: 2px;
-  color: var(--c-emerald-dark);
+.hero-titles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.hero-logo-atas {
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: -130px;
+}
+
+.hero-logo-heritage {
+  height: 400px;
+  object-fit: contain;
+  margin-top: -135px;
+}
+
+.hero-title-main {
+  font-family: 'Shanlan', serif;
+  font-size: 9rem;
+  line-height: 0.9;
+  margin: 0;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: var(--c-text-dark);
+}
+
+.hero-title-sub {
+  font-family: 'Shanlan', serif;
+  font-size: 4rem;
+  line-height: 0.9;
+  margin: 0;
+  margin-top: -16px;
+  font-weight: normal;
+  letter-spacing: 6px;
+  color: var(--c-text-dark);
 }
 
 .hero-subtitle {
@@ -274,7 +326,7 @@ ul {
   z-index: 5;
   display: flex;
   align-items: center;
-  border: 1px solid rgba(200, 169, 126, 0.2);
+  border: 1px solid rgba(187, 157, 129, 0.2);
 }
 
 .invitation-icon {
@@ -349,7 +401,7 @@ ul {
 .program-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(4, 36, 25, 0.2), rgba(4, 36, 25, 0.9));
+  background: linear-gradient(to bottom, rgba(35, 31, 32, 0.2), rgba(35, 31, 32, 0.9));
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -390,8 +442,8 @@ ul {
   display: flex;
   justify-content: space-between;
   text-align: center;
-  border-top: 1px solid rgba(200, 169, 126, 0.3);
-  border-bottom: 1px solid rgba(200, 169, 126, 0.3);
+  border-top: 1px solid rgba(187, 157, 129, 0.3);
+  border-bottom: 1px solid rgba(187, 157, 129, 0.3);
   padding: var(--space-md) 0;
   margin-bottom: var(--space-xl);
   flex-wrap: wrap;
@@ -483,6 +535,15 @@ ul {
   object-fit: cover;
 }
 
+/* Schedule & Reserve Wrapper */
+.schedule-reserve-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  align-items: center;
+}
+
 /* Schedule Section */
 .schedule-section {
   max-width: 800px;
@@ -501,7 +562,7 @@ ul {
   top: 0;
   bottom: 0;
   width: 1px;
-  background-color: rgba(200, 169, 126, 0.5);
+  background-color: rgba(187, 157, 129, 0.5);
 }
 
 .schedule-item {
@@ -544,7 +605,6 @@ ul {
   align-items: center;
   position: relative;
   overflow: hidden;
-  margin-bottom: var(--space-xl);
   box-shadow: var(--shadow-lg);
 }
 
@@ -616,7 +676,7 @@ footer {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(4, 36, 25, 0.8);
+  background: rgba(35, 31, 32, 0.8);
   backdrop-filter: blur(8px);
   z-index: 100;
   display: flex;
@@ -717,7 +777,7 @@ footer {
 .form-control:focus {
   outline: none;
   border-color: var(--c-gold);
-  box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.2);
+  box-shadow: 0 0 0 3px rgba(187, 157, 129, 0.2);
 }
 
 .form-submit {
@@ -778,6 +838,10 @@ footer {
   .gallery-grid {
     height: 300px;
   }
+  .schedule-reserve-wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
 }
 
 @media (max-width: 768px) {
@@ -797,7 +861,7 @@ footer {
     min-height: 85vh;
   }
   .hero-bg {
-    background-size: 150% auto;
+    background-size: cover;
     background-position: center bottom;
   }
   .ornament-top-left {
@@ -806,12 +870,28 @@ footer {
     width: 60vw;
   }
   .ornament-event-right {
-    top: -50px;
+    top: 0px;
     right: -80px;
     width: 70vw;
   }
-  .hero-title {
-    font-size: 2.5rem;
+  .hero-logo-atas {
+    height: 200px;
+    margin-bottom: -80px;
+  }
+  .hero-logo-heritage {
+    height: 260px;
+    margin-top: -85px;
+  }
+  .hero-title-main {
+    font-size: 18vw;
+    letter-spacing: 0px;
+    white-space: nowrap;
+  }
+  .hero-title-sub {
+    font-size: 7.5vw;
+    letter-spacing: 1px;
+    margin-top: -8px;
+    white-space: nowrap;
   }
   .invitation-card {
     flex-direction: column;

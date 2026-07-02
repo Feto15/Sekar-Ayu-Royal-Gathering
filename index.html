@@ -28,7 +28,12 @@
     <div class="hero-bg"></div>
     
     <div class="container hero-content">
-      <img src="sekar ayu all in.png" alt="Sekar Ayu Royal Gathering" style="width: 100%; max-width: 800px; height: auto; margin-bottom: 32px; display: block; margin-left: auto; margin-right: auto;">
+      <div class="hero-titles">
+        <img src="logo atas.png" alt="Ornament Atas" class="hero-logo-atas">
+        <h1 class="hero-title-main">SEKAR AYU</h1>
+        <h2 class="hero-title-sub">ROYAL GATHERING</h2>
+        <img src="logo heritage.png" alt="Heritage Edition" class="hero-logo-heritage">
+      </div>
       <button class="btn btn-primary open-rsvp-btn">OPEN INVITATION &nbsp; <i class="fa-solid fa-arrow-right"></i></button>
     </div>
   </section>
@@ -50,9 +55,9 @@
   <section class="container">
     <div class="section-title">
       <span>EXCLUSIVE FOR YOU</span>
-      <h2>BNI EMERALD PROGRAMS</h2>
+      <h2 style="display: none;">BNI EMERALD PROGRAMS</h2>
     </div>
-    <div class="programs-grid">
+    <div class="programs-grid" style="display: none;">
       <div class="program-card">
         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Wealth">
         <div class="program-overlay">
@@ -161,7 +166,10 @@
           </div>
         </div>
         <div style="margin-top: var(--space-md);">
-          <button class="btn btn-primary" style="background: var(--c-emerald-dark);">ADD TO CALENDAR &nbsp;<i class="fa-regular fa-calendar-plus"></i></button>
+          <button class="btn btn-primary" style="background: var(--c-emerald-dark); display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>ADD TO CALENDAR</span>
+            <i class="fa-regular fa-calendar-plus" style="margin-top: -2px;"></i>
+          </button>
         </div>
       </div>
       <div class="gallery-grid">
@@ -171,57 +179,60 @@
       </div>
     </div>
   </section>
-
-  <section class="container schedule-section">
-    <div class="section-title">
-      <h2>EVENT SCHEDULE</h2>
-    </div>
-    <div style="display: flex; justify-content: center;">
-      <div class="schedule-list">
-        <div class="schedule-item">
-          <div class="time">16.00 - 17.45</div>
-          <div class="event">REGISTRATION & WELCOME DRINK</div>
-        </div>
-        <div class="schedule-item">
-          <div class="time">18.00 - 18.45</div>
-          <div class="event">OPENING & WELCOME SPEECH</div>
-        </div>
-        <div class="schedule-item">
-          <div class="time">18.45 - 19.00</div>
-          <div class="event">INTIMATE CONVERSATION</div>
-        </div>
-        <div class="schedule-item">
-          <div class="time">19.00 - 20.00</div>
-          <div class="event">ROYAL DINNER & NETWORK SESSION</div>
-        </div>
-        <div class="schedule-item">
-          <div class="time">20.00 - 20.40</div>
-          <div class="event">LEADERBOARD, BEST WASTRA</div>
-        </div>
-        <div class="schedule-item">
-          <div class="time">20.40 - 21.00</div>
-          <div class="event">LUCKY DRAW & CLOSING</div>
+  <!-- Schedule & Reserve Section -->
+  <section class="container schedule-reserve-wrapper">
+    <!-- Left: Schedule -->
+    <div class="schedule-column">
+      <div class="section-title" style="margin-bottom: 32px;">
+        <h2 style="font-size: 2rem;">EVENT SCHEDULE</h2>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <div class="schedule-list">
+          <div class="schedule-item">
+            <div class="time">16.00 - 17.45</div>
+            <div class="event">REGISTRATION & WELCOME DRINK</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">18.00 - 18.45</div>
+            <div class="event">OPENING & WELCOME SPEECH</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">18.45 - 19.00</div>
+            <div class="event">INTIMATE CONVERSATION</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">19.00 - 20.00</div>
+            <div class="event">ROYAL DINNER & NETWORK SESSION</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">20.00 - 20.40</div>
+            <div class="event">LEADERBOARD, BEST WASTRA</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">20.40 - 21.00</div>
+            <div class="event">LUCKY DRAW & CLOSING</div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Reserve Action -->
-  <section class="container">
-    <div class="reserve-section">
-      <div class="reserve-content">
-        <h5>KINDLY</h5>
-        <h2>RESERVE YOUR PLACE</h2>
-        <p>Kindly confirm your attendance<br>by 10 Juli 2026.</p>
-        <button class="btn btn-gold open-rsvp-btn" style="margin-bottom: 24px;">RSVP NOW &nbsp; &rarr;</button>
-        <div style="font-size: 0.85rem;">
-          Need assistance?<br>
-          <a href="#" style="color: var(--c-gold); display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;">
-            <i class="fa-brands fa-whatsapp"></i> Chat with Relationship Manager
-          </a>
+    <!-- Right: Reserve -->
+    <div class="reserve-column">
+      <div class="reserve-section" style="margin-bottom: 0; height: 100%;">
+        <div class="reserve-content">
+          <h5>KINDLY</h5>
+          <h2>RESERVE YOUR PLACE</h2>
+          <p>Kindly confirm your attendance<br>by 10 Juli 2026.</p>
+          <button class="btn btn-gold open-rsvp-btn" style="margin-bottom: 24px;">RSVP NOW &nbsp; &rarr;</button>
+          <div style="font-size: 0.85rem;">
+            Need assistance?<br>
+            <a href="#" style="color: var(--c-gold); display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;">
+              <i class="fa-brands fa-whatsapp"></i> Chat with Relationship Manager
+            </a>
+          </div>
         </div>
+        <img src="https://images.unsplash.com/photo-1601887389937-0b02c26b602c?q=80&w=2527&auto=format&fit=crop" class="gem-bg" alt="Emerald Gem Texture" style="mix-blend-mode: multiply;">
       </div>
-      <img src="https://images.unsplash.com/photo-1601887389937-0b02c26b602c?q=80&w=2527&auto=format&fit=crop" class="gem-bg" alt="Emerald Gem Texture" style="mix-blend-mode: multiply;">
     </div>
   </section>
 
