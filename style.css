@@ -189,7 +189,7 @@ ul {
   justify-content: center;
   text-align: center;
   padding-top: var(--space-xl);
-  overflow: hidden;
+  padding-bottom: 120px;
 }
 
 .hero-bg {
@@ -250,38 +250,12 @@ ul {
   margin-bottom: 32px;
 }
 
-.hero-logo-atas {
-  height: 300px;
+.hero-logo-all {
+  width: 90vw;
+  max-width: 800px;
+  height: auto;
+  max-height: 65vh;
   object-fit: contain;
-  margin-bottom: -130px;
-}
-
-.hero-logo-heritage {
-  height: 400px;
-  object-fit: contain;
-  margin-top: -135px;
-  margin-bottom: -180px;
-}
-
-.hero-title-main {
-  font-family: 'Shanlan', serif;
-  font-size: 9rem;
-  line-height: 0.9;
-  margin: 0;
-  font-weight: bold;
-  letter-spacing: 4px;
-  color: var(--c-text-dark);
-}
-
-.hero-title-sub {
-  font-family: 'Shanlan', serif;
-  font-size: 4rem;
-  line-height: 0.9;
-  margin: 0;
-  margin-top: -16px;
-  font-weight: normal;
-  letter-spacing: 6px;
-  color: var(--c-text-dark);
 }
 
 .hero-subtitle {
@@ -875,26 +849,6 @@ footer {
     top: 0px;
     right: -80px;
     width: 70vw;
-  }
-  .hero-logo-atas {
-    height: 200px;
-    margin-bottom: -80px;
-  }
-  .hero-logo-heritage {
-    height: 260px;
-    margin-top: -85px;
-    margin-bottom: -80px;
-  }
-  .hero-title-main {
-    font-size: 18vw;
-    letter-spacing: 0px;
-    white-space: nowrap;
-  }
-  .hero-title-sub {
-    font-size: 7.5vw;
-    letter-spacing: 1px;
-    margin-top: -8px;
-    white-space: nowrap;
   }
   .invitation-card {
     flex-direction: column;
