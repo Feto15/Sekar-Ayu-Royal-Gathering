@@ -3,14 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sekar Ayu Royal Gathering - Heritage Edition</title>
+  <title>Sekar Ayu Royal Gathering - Demo Cover</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    /* Prevent scrolling initially */
+    body {
+      overflow: hidden;
+    }
+    
+    /* Full screen cover overlay */
+    #invitation-cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--c-bg); /* Use the theme background */
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    
+    /* Cover internal z-indexing so bg is behind text */
+    #invitation-cover .hero-bg {
+      z-index: 0;
+      opacity: 0.6;
+    }
+    #invitation-cover .ornament-top-left {
+      z-index: 1;
+    }
+    #invitation-cover .hero-content-wrapper {
+      z-index: 2;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
 </head>
-<body class="locked">
+<body>
 
-  <!-- Invitation Cover Overlay -->
+  <!-- ================= THE COVER ================= -->
   <div id="invitation-cover">
     <img src="mandala.png" class="ornament ornament-top-left" alt="Ornament">
     <div class="hero-bg"></div>
@@ -25,6 +63,9 @@
       </button>
     </div>
   </div>
+  <!-- ============================================= -->
+
+
   <!-- Header -->
   <header class="header">
     <div class="container">
@@ -37,8 +78,8 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Hero Section (Button removed since it's on the cover now) -->
+  <section class="hero" style="min-height: 80vh;">
     <img src="mandala.png" class="ornament ornament-top-left" alt="Ornament">
     <div class="hero-bg"></div>
     
@@ -46,6 +87,7 @@
       <div class="hero-titles">
         <img src="logo landing page 2.png" alt="Sekar Ayu Royal Gathering" class="hero-logo-all">
       </div>
+      <!-- Removed the OPEN INVITATION button from here -->
     </div>
   </section>
 
@@ -328,5 +370,19 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    // Cover Page Logic
+    document.getElementById('open-cover-btn').addEventListener('click', function() {
+      // Slide the cover up smoothly
+      document.getElementById('invitation-cover').style.transform = 'translateY(-100vh)';
+      // Enable scrolling on the body
+      document.body.style.overflow = 'auto';
+      
+      // Optionally hide the cover from DOM after animation completes (1.2 seconds)
+      setTimeout(function() {
+        document.getElementById('invitation-cover').style.display = 'none';
+      }, 1200);
+    });
+  </script>
 </body>
 </html>

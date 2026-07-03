@@ -180,6 +180,43 @@ ul {
   object-fit: contain;
 }
 
+/* --- Cover Page --- */
+body.locked {
+  overflow: hidden;
+}
+
+#invitation-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--c-bg);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#invitation-cover .hero-bg {
+  z-index: 0;
+  opacity: 0.6;
+}
+
+#invitation-cover .ornament-top-left {
+  z-index: 1;
+}
+
+#invitation-cover .hero-content-wrapper {
+  z-index: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
@@ -812,7 +849,7 @@ footer {
     grid-template-columns: 1fr;
   }
   .gallery-grid {
-    height: 300px;
+    height: 450px;
   }
   .schedule-reserve-wrapper {
     grid-template-columns: 1fr;

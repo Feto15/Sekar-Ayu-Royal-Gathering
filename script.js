@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Elements
+    const openCoverBtn = document.getElementById('open-cover-btn');
+    const cover = document.getElementById('invitation-cover');
     const openBtns = document.querySelectorAll('.open-rsvp-btn');
     const modal = document.getElementById('rsvp-modal');
     const closeBtn = document.getElementById('close-modal');
@@ -11,6 +13,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const qrcodeContainer = document.getElementById('qrcode');
     const ticketIdDisplay = document.getElementById('ticket-id');
     const downloadBtn = document.getElementById('download-ticket');
+
+    // Cover Page Logic
+    if (openCoverBtn && cover) {
+        openCoverBtn.addEventListener('click', () => {
+            cover.style.transform = 'translateY(-100vh)';
+            document.body.classList.remove('locked');
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+            }, 1200);
+        });
+    }
 
     // Open Modal
     openBtns.forEach(btn => {
@@ -74,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Update UI
             guestNameDisplay.textContent = name;
-            ticketIdDisplay.textContent = 'TICKET ID: ' + ticketId;
+            ticketIdDisplay.textContent = name.toUpperCase();
 
             // Generate QR Code
             qrcodeContainer.innerHTML = '';
