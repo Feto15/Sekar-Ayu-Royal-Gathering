@@ -850,6 +850,10 @@ footer {
     right: -80px;
     width: 70vw;
   }
+  .hero-logo-all {
+    width: 115vw;
+    max-width: none;
+  }
   .invitation-card {
     flex-direction: column;
     text-align: center;
