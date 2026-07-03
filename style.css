@@ -586,6 +586,7 @@ ul {
 
 .time {
   width: 120px;
+  flex-shrink: 0;
   font-weight: 600;
   color: var(--c-emerald);
   font-family: var(--font-serif);
