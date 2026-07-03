@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cover Page Logic
     if (openCoverBtn && cover) {
+        // Prevent browser from remembering scroll position on refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         openCoverBtn.addEventListener('click', () => {
             cover.style.transform = 'translateY(-100vh)';
             document.body.classList.remove('locked');
