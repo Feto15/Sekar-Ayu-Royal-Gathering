@@ -96,44 +96,42 @@ document.addEventListener('DOMContentLoaded', () => {
         // Real API call to Google Sheets
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
+            mode: 'no-cors', // Critical for Google Apps Script
             body: JSON.stringify(requestData),
-            // Important: Use text/plain to avoid CORS preflight issues with Google Apps Script
             headers: {
                 'Content-Type': 'text/plain;charset=utf-8',
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === "success") {
-                // Create data string for QR Code
-                const qrData = JSON.stringify({
-                    id: ticketId,
-                    name: name,
-                    email: email,
-                    timestamp: new Date().toISOString()
-                });
+        .then(() => {
+            // With no-cors, the response is opaque and cannot be read.
+            // We assume success if the network request completed.
+            
+            // Create data string for QR Code
+            const qrData = JSON.stringify({
+                id: ticketId,
+                name: name,
+                email: email,
+                timestamp: new Date().toISOString()
+            });
 
-                // Update UI
-                guestNameDisplay.textContent = name;
-                ticketIdDisplay.textContent = name.toUpperCase();
+            // Update UI
+            guestNameDisplay.textContent = name;
+            ticketIdDisplay.textContent = name.toUpperCase();
 
-                // Generate QR Code
-                qrcodeContainer.innerHTML = '';
-                new QRCode(qrcodeContainer, {
-                    text: qrData,
-                    width: 180,
-                    height: 180,
-                    colorDark: "#042419", // Emerald Dark
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
-                });
+            // Generate QR Code
+            qrcodeContainer.innerHTML = '';
+            new QRCode(qrcodeContainer, {
+                text: qrData,
+                width: 180,
+                height: 180,
+                colorDark: "#042419", // Emerald Dark
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
 
-                // Switch views
-                formView.style.display = 'none';
-                ticketView.classList.add('active');
-            } else {
-                alert("Sorry, there was an error submitting your RSVP: " + data.message);
-            }
+            // Switch views
+            formView.style.display = 'none';
+            ticketView.classList.add('active');
         })
         .catch(error => {
             console.error('Error:', error);
