@@ -79,43 +79,71 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PROCESSING...';
         submitBtn.disabled = true;
 
-        // Simulate API call and generate QR code
-        setTimeout(() => {
-            // Generate a random ticket ID
-            const ticketId = 'SA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-            
-            // Create data string for QR Code
-            const qrData = JSON.stringify({
-                id: ticketId,
-                name: name,
-                email: email,
-                timestamp: new Date().toISOString()
-            });
+        // Generate a random ticket ID
+        const ticketId = 'SA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        
+        // Data payload to send
+        const requestData = {
+            ticketId: ticketId,
+            fullName: name,
+            email: email,
+            phone: phone,
+            company: company
+        };
 
-            // Update UI
-            guestNameDisplay.textContent = name;
-            ticketIdDisplay.textContent = name.toUpperCase();
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIFSbA4DwLH3rPErpRyetmFe-Kq8zo6P34sphi6xQP6XiSAZScQR37Qmw7JBgs0exP/exec';
 
-            // Generate QR Code
-            qrcodeContainer.innerHTML = '';
-            new QRCode(qrcodeContainer, {
-                text: qrData,
-                width: 180,
-                height: 180,
-                colorDark: "#042419", // Emerald Dark
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
+        // Real API call to Google Sheets
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(requestData),
+            // Important: Use text/plain to avoid CORS preflight issues with Google Apps Script
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === "success") {
+                // Create data string for QR Code
+                const qrData = JSON.stringify({
+                    id: ticketId,
+                    name: name,
+                    email: email,
+                    timestamp: new Date().toISOString()
+                });
 
-            // Switch views
-            formView.style.display = 'none';
-            ticketView.classList.add('active');
+                // Update UI
+                guestNameDisplay.textContent = name;
+                ticketIdDisplay.textContent = name.toUpperCase();
 
+                // Generate QR Code
+                qrcodeContainer.innerHTML = '';
+                new QRCode(qrcodeContainer, {
+                    text: qrData,
+                    width: 180,
+                    height: 180,
+                    colorDark: "#042419", // Emerald Dark
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+
+                // Switch views
+                formView.style.display = 'none';
+                ticketView.classList.add('active');
+            } else {
+                alert("Sorry, there was an error submitting your RSVP: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Connection error. Please try again later.");
+        })
+        .finally(() => {
             // Reset button
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
-
-        }, 1500); // 1.5s delay to simulate network request
+        }); // 1.5s delay to simulate network request
     });
 
     // Download Ticket Action (Mock)
