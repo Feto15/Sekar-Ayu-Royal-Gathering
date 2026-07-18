@@ -156,18 +156,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 3. Trigger n8n Webhook POST dengan gambar utuh
                 setTimeout(() => {
-                    const originalAnimation = ticketView.style.animation;
-                    ticketView.style.animation = 'none';
-                    downloadBtn.style.display = 'none'; // Sembunyikan tombol saat difoto
-
                     html2canvas(ticketView, {
                         backgroundColor: '#FAF7F2',
                         scale: 2,
-                        logging: false
+                        logging: false,
+                        onclone: (clonedDoc) => {
+                            const clonedView = clonedDoc.getElementById('ticket-view');
+                            if (clonedView) clonedView.style.animation = 'none';
+                            const clonedBtn = clonedDoc.getElementById('download-ticket');
+                            if (clonedBtn) clonedBtn.style.display = 'none';
+                        }
                     }).then(canvas => {
-                        // Kembalikan tombol dan animasi
-                        ticketView.style.animation = originalAnimation;
-                        downloadBtn.style.display = 'block';
 
                         // Dapatkan data gambar Base64
                         const base64Image = canvas.toDataURL("image/png");
@@ -214,21 +213,18 @@ document.addEventListener('DOMContentLoaded', () => {
         downloadBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SAVING...';
         downloadBtn.disabled = true;
 
-        // Hide the download button itself from being captured
-        downloadBtn.style.display = 'none';
-
-        // Disable animation to prevent html2canvas capturing fading opacity
-        const originalAnimation = ticketView.style.animation;
-        ticketView.style.animation = 'none';
-
         html2canvas(ticketView, {
             backgroundColor: '#FAF7F2', // Match the modal background
             scale: 2, // High resolution
-            logging: false
+            logging: false,
+            onclone: (clonedDoc) => {
+                const clonedView = clonedDoc.getElementById('ticket-view');
+                if (clonedView) clonedView.style.animation = 'none';
+                const clonedBtn = clonedDoc.getElementById('download-ticket');
+                if (clonedBtn) clonedBtn.style.display = 'none';
+            }
         }).then(canvas => {
             // Restore styles
-            ticketView.style.animation = originalAnimation;
-            downloadBtn.style.display = 'block';
             downloadBtn.innerHTML = originalBtnText;
             downloadBtn.disabled = false;
 
@@ -241,8 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
         }).catch(err => {
             console.error("Error saving ticket:", err);
-            ticketView.style.animation = originalAnimation;
-            downloadBtn.style.display = 'block';
             downloadBtn.innerHTML = originalBtnText;
             downloadBtn.disabled = false;
             alert("Terjadi kesalahan saat menyimpan tiket.");
