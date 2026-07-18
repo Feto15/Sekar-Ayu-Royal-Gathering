@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8nJMp0P3IhJWG1nUYlo7H99dCunE8J3wWQeFWlagiISxIteSqX8lKJq2_xefoQVY/exec';
-        const N8N_WEBHOOK_URL = 'https://n8n.feldi.web.id/webhook-test/8e78d5d3-ef1c-4c08-a57d-ad3bc9b6ff26';
+        const N8N_WEBHOOK_URL = 'https://n8n.feldi.web.id/webhook/8e78d5d3-ef1c-4c08-a57d-ad3bc9b6ff26';
 
         // Real API call to Google Sheets
         fetch(GOOGLE_SCRIPT_URL, {
@@ -137,6 +137,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
+
+            // Convert Canvas to Image so html2canvas captures it perfectly
+            setTimeout(() => {
+                const qrCanvas = qrcodeContainer.querySelector('canvas');
+                if (qrCanvas) {
+                    const img = document.createElement('img');
+                    img.src = qrCanvas.toDataURL('image/png');
+                    img.style.width = '180px';
+                    img.style.height = '180px';
+                    qrcodeContainer.innerHTML = '';
+                    qrcodeContainer.appendChild(img);
+                }
+            }, 100);
 
             // Switch views
             formView.style.display = 'none';
