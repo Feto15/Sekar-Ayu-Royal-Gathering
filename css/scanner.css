@@ -1,0 +1,91 @@
+/* Scanner Specific Styles */
+.scanner-body {
+    background-color: var(--c-emerald-dark);
+    color: var(--c-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-md);
+    margin: 0;
+}
+
+.scanner-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scanner-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    width: 100%;
+}
+
+.scanner-header .logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--c-gold);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.scanner-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    color: var(--c-light);
+}
+
+.scanner-header p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.scanner-viewport {
+    width: 100%;
+    background: #000;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-bottom: var(--space-lg);
+    border: 2px solid var(--c-gold);
+}
+
+/* html5-qrcode overrides */
+#reader {
+    width: 100%;
+    min-height: 300px;
+}
+
+#reader video {
+    object-fit: cover;
+}
+
+#reader__dashboard_section_csr span {
+    color: white !important;
+}
+
+#reader__dashboard_section_swaplink {
+    display: none !important; /* We will use our own button */
+}
+
+#reader__dashboard_section_csr button {
+    background-color: var(--c-gold) !important;
+    color: var(--c-emerald-dark) !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: var(--radius-sm) !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    margin-top: 10px !important;
+}
+
+.scanner-controls {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scanner Registrasi - Sekar Ayu Royal Gathering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/scanner.css">
+    <!-- HTML5-QRCode Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body class="scanner-body">
+    <div class="scanner-container">
+        <!-- Header -->
+        <header class="scanner-header">
+            <div class="logo">Sekar Ayu</div>
+            <h2>Registration Scanner</h2>
+            <p>Arahkan kamera ke tiket QR Code tamu</p>
+        </header>
+
+        <!-- Scanner Viewport -->
+        <div class="scanner-viewport">
+            <div id="reader"></div>
+        </div>
+
+        <!-- Controls -->
+        <div class="scanner-controls">
+            <button id="switch-camera-btn" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white;">
+                <i class="fa-solid fa-camera-rotate"></i> Tukar Kamera
+            </button>
+            <a href="index.html" class="btn" style="color: white; margin-top: 16px; font-size: 0.9rem; text-decoration: underline;">Kembali ke Beranda</a>
+        </div>
+
+        <!-- Success Modal (Hidden by default) -->
+        <div id="result-modal" class="modal">
+            <div class="modal-content" style="max-width: 400px; text-align: center;">
+                <div class="success-icon" style="color: var(--c-emerald); font-size: 4rem; margin-bottom: 16px;">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 style="margin-bottom: 8px;">Check-in Berhasil!</h3>
+                <div id="scanned-data" style="background: rgba(4, 36, 25, 0.05); padding: 16px; border-radius: var(--radius-sm); margin-bottom: 24px; font-family: monospace; word-break: break-all; color: var(--c-emerald-dark);">
+                    <!-- Scanned data will appear here -->
+                </div>
+                <button id="scan-next-btn" class="btn btn-gold" style="width: 100%;">
+                    Scan Tamu Berikutnya
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/scanner.js"></script>
+</body>
+</html>
