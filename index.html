@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body class="locked">
 
@@ -154,7 +155,7 @@
           <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
           <div class="detail-info">
             <h5>TIME</h5>
-            <p>16.00 WIB - 21.30 WIB</p>
+            <p>16.45 WIB - 21.15 WIB</p>
           </div>
         </div>
         <div class="detail-row">
@@ -172,6 +173,7 @@
           </div>
         </div>
         <div style="margin-top: var(--space-md);">
+          <p style="margin-bottom: 16px; font-weight: 500; font-size: 0.95rem;">Kindly confirm your attendance by 23 Juli 2026.</p>
           <button class="btn btn-primary open-rsvp-btn" style="background: var(--c-emerald-dark); display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
             <span>RSVP NOW</span>
             <i class="fa-solid fa-arrow-right"></i>
@@ -195,44 +197,60 @@
       <div style="display: flex; justify-content: center;">
         <div class="schedule-list">
           <div class="schedule-item">
-            <div class="time">13.00 - 14.00</div>
-            <div class="event">Registration & Welcome Reception</div>
+            <div class="time">16.45 - 17.45</div>
+            <div class="event">REGISTRATION</div>
           </div>
           <div class="schedule-item">
-            <div class="time">14.00 - 14.15</div>
-            <div class="event">Traditional Performance</div>
+            <div class="time">17.45 - 17.55</div>
+            <div class="event">OPENING GATE FOR PARTISIPANT</div>
           </div>
           <div class="schedule-item">
-            <div class="time">14.15 - 14.30</div>
-            <div class="event">Opening Ceremony</div>
+            <div class="time">17.55 - 18.00</div>
+            <div class="event">VIP ENTRANCE</div>
           </div>
           <div class="schedule-item">
-            <div class="time">14.30 - 14.45</div>
-            <div class="event">Royal Toast Jamu Ceremony</div>
+            <div class="time">18.00 - 18.08</div>
+            <div class="event">TARI GAMBYONG</div>
           </div>
           <div class="schedule-item">
-            <div class="time">14.45 - 15.15</div>
-            <div class="event">Inspirational Sharing Session</div>
+            <div class="time">18.08 - 18.16</div>
+            <div class="event">BUMPER OPENING</div>
           </div>
           <div class="schedule-item">
-            <div class="time">15.15 - 15.30</div>
-            <div class="event">Interactive Discussion</div>
+            <div class="time">18.16 - 18.21</div>
+            <div class="event">MC OPENING & GREETING</div>
           </div>
           <div class="schedule-item">
-            <div class="time">15.30 - 15.45</div>
-            <div class="event">Best Wastra Nusantara Appreciation</div>
+            <div class="time">18.21 - 18.31</div>
+            <div class="event">WELCOME SPEECH by Ibu Rian Eriana Kaslan</div>
           </div>
           <div class="schedule-item">
-            <div class="time">15.45 - 16.15</div>
-            <div class="event">Networking Session</div>
+            <div class="time">18.31 - 18.36</div>
+            <div class="event">OPENING CEREMONIAL : GONG & TOAST JAMU</div>
           </div>
           <div class="schedule-item">
-            <div class="time">16.15 - 16.35</div>
-            <div class="event">Various Exclusive Gifts</div>
+            <div class="time">18.40 - 19.25</div>
+            <div class="event">INTIMATE CONVERSATION : WOMEN, WEALTH & LEGACY</div>
           </div>
           <div class="schedule-item">
-            <div class="time">16.35 - 16.45</div>
-            <div class="event">Closing Ceremony</div>
+            <div class="time">19.30 - 20.25</div>
+            <div class="event">ROYAL HERITAGE DINNER & PRIVATE TABLE DISCUSSION</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">20.25 - 20.35</div>
+            <div class="event">BEST WASTRA</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">20.45 - 20.50</div>
+            <div class="event">VARIOUS EXCLUSIVE GIFTS</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">20.50 - 20.55</div>
+            <div class="event">MC CLOSING</div>
+          </div>
+          <div class="schedule-item">
+            <div class="time">20.55 - 21.15</div>
+            <div class="event">RAMAH TAMAH</div>
           </div>
         </div>
       </div>
@@ -242,11 +260,10 @@
     <div class="reserve-column">
       <div class="reserve-section" style="margin-bottom: 0; text-align: center; justify-content: center;">
         <div class="reserve-content" style="margin: 0 auto;">
-          <h5>KINDLY</h5>
-          <h2>RESERVE YOUR PLACE</h2>
-          <p>Kindly confirm your attendance<br>by 23 Juli 2026.</p>
-          <button class="btn btn-gold open-rsvp-btn" style="margin-bottom: 24px;">RSVP NOW &nbsp; &rarr;</button>
-
+          <h5>VIEW</h5>
+          <h2>EVENT DETAILS</h2>
+          <p>Kindly view the details below<br>for the upcoming event.</p>
+          <button class="btn btn-gold" id="open-pdf-btn" style="margin-bottom: 0;">VIEW EVENT DETAILS &nbsp; <i class="fa-solid fa-file-pdf"></i></button>
         </div>
         <img src="assets/images/diamond.png" class="gem-bg" alt="Diamond Texture" style="mix-blend-mode: multiply;">
       </div>
@@ -323,6 +340,19 @@
         <button class="btn btn-primary" id="download-ticket" style="margin-top: 24px; width: 100%;">SAVE TICKET</button>
       </div>
 
+    </div>
+  </div>
+
+  <!-- PDF Modal -->
+  <div id="pdf-modal" class="modal-overlay">
+    <div class="modal-content pdf-modal-content">
+      <div class="modal-header">
+        <h4 style="margin: 0; font-family: 'Playfair Display', serif; color: var(--c-emerald-dark);">Event Details</h4>
+        <button class="close-modal" id="close-pdf-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="pdf-container">
+        <iframe src="assets/docs/tor-bni-emerald.pdf" width="100%" height="100%" style="border: none;"></iframe>
+      </div>
     </div>
   </div>
 

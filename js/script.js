@@ -32,19 +32,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function lockScroll() {
+        document.body.style.overflow = 'hidden';
+    }
+
+    function unlockScroll() {
+        document.body.style.overflow = '';
+    }
+
     // Open Modal
     openBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            lockScroll();
         });
     });
 
     // Close Modal
     const closeModal = () => {
         modal.classList.remove('active');
-        document.body.style.overflow = '';
+        unlockScroll();
         
         // Reset view after animation
         setTimeout(() => {
@@ -82,8 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Generate a random ticket ID
         const ticketId = 'SA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
         
-        // Data payload to send
+        // Data payload to send — must use the SAME Apps Script URL as scanner.js
         const requestData = {
+            action: 'register',
             ticketId: ticketId,
             fullName: name,
             email: email,
@@ -91,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
             company: company
         };
 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIFSbA4DwLH3rPErpRyetmFe-Kq8zo6P34sphi6xQP6XiSAZScQR37Qmw7JBgs0exP/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8nJMp0P3IhJWG1nUYlo7H99dCunE8J3wWQeFWlagiISxIteSqX8lKJq2_xefoQVY/exec';
+        const N8N_WEBHOOK_URL = 'https://n8n.feldi.web.id/webhook-test/8e78d5d3-ef1c-4c08-a57d-ad3bc9b6ff26';
 
         // Real API call to Google Sheets
         fetch(GOOGLE_SCRIPT_URL, {
@@ -103,10 +113,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(() => {
-            // With no-cors, the response is opaque and cannot be read.
-            // We assume success if the network request completed.
+            // 1. Trigger n8n Webhook to send Email & Barcode
+            const n8nParams = new URLSearchParams({
+                ticketId: ticketId,
+                fullName: name,
+                email: email,
+                phone: phone,
+                company: company
+            }).toString();
             
-            // Create data string for QR Code
+            fetch(`${N8N_WEBHOOK_URL}?${n8nParams}`, {
+                method: 'GET',
+                mode: 'no-cors' // Use no-cors to prevent blocking the UI if n8n has CORS issues
+            }).catch(err => console.error("Webhook n8n error:", err));
+
+            // 2. Continue UI update for Ticket view
+            
+            // QR hanya perlu ticket id agar scanner mudah match ke kolom Sheet
             const qrData = JSON.stringify({
                 id: ticketId,
                 name: name,
@@ -144,10 +167,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }); // 1.5s delay to simulate network request
     });
 
-    // Download Ticket Action (Mock)
+    // Download Ticket Action (Real Implementation with html2canvas)
     downloadBtn.addEventListener('click', () => {
-        alert('Ticket saved to your device!');
-        closeModal();
+        if (typeof html2canvas === 'undefined') {
+            alert('Library html2canvas belum dimuat. Silakan refresh halaman.');
+            return;
+        }
+
+        const originalBtnText = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SAVING...';
+        downloadBtn.disabled = true;
+
+        // Hide the download button itself from being captured
+        downloadBtn.style.display = 'none';
+
+        html2canvas(ticketView, {
+            backgroundColor: '#FAF7F2', // Match the modal background
+            scale: 2, // High resolution
+            logging: false
+        }).then(canvas => {
+            // Restore the button
+            downloadBtn.style.display = 'block';
+            downloadBtn.innerHTML = originalBtnText;
+            downloadBtn.disabled = false;
+
+            // Trigger download
+            const image = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = 'SekarAyu_Ticket_' + ticketIdDisplay.textContent + '.png';
+            link.href = image;
+            link.click();
+            
+        }).catch(err => {
+            console.error("Error saving ticket:", err);
+            downloadBtn.style.display = 'block';
+            downloadBtn.innerHTML = originalBtnText;
+            downloadBtn.disabled = false;
+            alert("Terjadi kesalahan saat menyimpan tiket.");
+        });
     });
 
     // Smooth Scroll for links (if any anchor links added later)
@@ -162,4 +219,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // PDF Modal Logic
+    const pdfModal = document.getElementById('pdf-modal');
+    const openPdfBtn = document.getElementById('open-pdf-btn');
+    const closePdfBtn = document.getElementById('close-pdf-modal');
+
+    if (openPdfBtn && pdfModal && closePdfBtn) {
+        openPdfBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            pdfModal.classList.add('active');
+            lockScroll();
+        });
+
+        closePdfBtn.addEventListener('click', () => {
+            pdfModal.classList.remove('active');
+            unlockScroll();
+        });
+
+        pdfModal.addEventListener('click', (e) => {
+            if (e.target === pdfModal) {
+                pdfModal.classList.remove('active');
+                unlockScroll();
+            }
+        });
+    }
 });
