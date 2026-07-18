@@ -181,12 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide the download button itself from being captured
         downloadBtn.style.display = 'none';
 
+        // Disable animation to prevent html2canvas capturing fading opacity
+        const originalAnimation = ticketView.style.animation;
+        ticketView.style.animation = 'none';
+
         html2canvas(ticketView, {
             backgroundColor: '#FAF7F2', // Match the modal background
             scale: 2, // High resolution
             logging: false
         }).then(canvas => {
-            // Restore the button
+            // Restore styles
+            ticketView.style.animation = originalAnimation;
             downloadBtn.style.display = 'block';
             downloadBtn.innerHTML = originalBtnText;
             downloadBtn.disabled = false;
@@ -200,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
         }).catch(err => {
             console.error("Error saving ticket:", err);
+            ticketView.style.animation = originalAnimation;
             downloadBtn.style.display = 'block';
             downloadBtn.innerHTML = originalBtnText;
             downloadBtn.disabled = false;
