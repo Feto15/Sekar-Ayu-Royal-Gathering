@@ -113,21 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(() => {
-            // 1. Trigger n8n Webhook to send Email & Barcode
-            const n8nParams = new URLSearchParams({
-                ticketId: ticketId,
-                fullName: name,
-                email: email,
-                phone: phone,
-                company: company
-            }).toString();
-            
-            fetch(`${N8N_WEBHOOK_URL}?${n8nParams}`, {
-                method: 'GET',
-                mode: 'no-cors' // Use no-cors to prevent blocking the UI if n8n has CORS issues
-            }).catch(err => console.error("Webhook n8n error:", err));
-
-            // 2. Continue UI update for Ticket view
+            // (Webhook n8n akan dipanggil setelah html2canvas selesai memotret)
             
             // QR hanya perlu ticket id agar scanner mudah match ke kolom Sheet
             const qrData = JSON.stringify({
@@ -147,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: qrData,
                 width: 180,
                 height: 180,
-                colorDark: "#042419", // Emerald Dark
+                colorDark: "#231f20", // Jet Black
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
@@ -155,6 +141,43 @@ document.addEventListener('DOMContentLoaded', () => {
             // Switch views
             formView.style.display = 'none';
             ticketView.classList.add('active');
+
+            // 3. Trigger n8n Webhook POST dengan gambar utuh
+            setTimeout(() => {
+                const originalAnimation = ticketView.style.animation;
+                ticketView.style.animation = 'none';
+                downloadBtn.style.display = 'none'; // Sembunyikan tombol saat difoto
+
+                html2canvas(ticketView, {
+                    backgroundColor: '#FAF7F2',
+                    scale: 2,
+                    logging: false
+                }).then(canvas => {
+                    // Kembalikan tombol dan animasi
+                    ticketView.style.animation = originalAnimation;
+                    downloadBtn.style.display = 'block';
+
+                    // Dapatkan data gambar Base64
+                    const base64Image = canvas.toDataURL("image/png");
+
+                    // POST ke Webhook n8n
+                    fetch(N8N_WEBHOOK_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Menghindari isu CORS di browser
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: JSON.stringify({
+                            ticketId: ticketId,
+                            fullName: name,
+                            email: email,
+                            phone: phone,
+                            company: company,
+                            ticketImage: base64Image
+                        })
+                    }).catch(err => console.error("Webhook error:", err));
+                });
+            }, 600); // Tunggu 600ms agar DOM & QR Code selesai di-render sebelum dipotret
         })
         .catch(error => {
             console.error('Error:', error);
